@@ -29,7 +29,7 @@ linkedList.prototype.insertAtEnd = function (data) {
   let newNode = new Node(data)
   if (!this.head) {
     newNode.next = null
-    head = tail
+    return this.head
   }
 
   let tail = this.head
@@ -94,7 +94,7 @@ linkedList.prototype.deleteNode = function (key) {
   prev.next = h.next
 }
 
-list.deleteNode(2)
+// list.deleteNode(2)
 
 // *****************************************************************
 // Utility code for getting middle of the linked list 
@@ -115,8 +115,139 @@ linkedList.prototype.findMiddle = function () {
     slow = slow.next
     fast = fast.next.next
   }
-  console.log(slow.data)
+  // console.log(slow.data)
 }
 
-list.findMiddle()
+// list.findMiddle()
 
+
+// *************************************************************************************
+// Question: Given a singly linked list. Find the nth node from the end of the given list. 
+
+linkedList.prototype.nthNodeFromEnd = function (nthNode) {
+  let curr = this.head
+  let prev = curr
+
+  if (this.head == null) {
+    console.log("This list does not exist.")
+  }
+
+  for (let i = 0; i < nthNode; i++) {
+    if (curr != null) {
+      curr = curr.next
+    }
+    else {
+      console.log("This node are not present in the linked list.")
+    }
+  }
+
+  while (curr != null) {
+    prev = prev.next
+    curr = curr.next
+  }
+
+  // console.log(prev)
+}
+
+// list.nthNodeFromEnd(4)
+
+
+// ***********************************************
+// finding loop in the list
+linkedList.prototype.isLoopFound = function () {
+  let fast = this.head
+  let slow = fast
+
+  if (this.head == null) {
+    console.log("This list does not exist.")
+  }
+
+  while (fast != null && fast.next != null) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow == fast) {
+      return true
+    }
+  }
+  return false
+}
+
+// list.insertAtBeginning(1)
+// list.insertAtEnd(2)
+// list.insertAtEnd(3)
+// list.insertAtEnd(4)
+// list.insertAtEnd(5)
+// list.insertAtEnd(6)
+// list.insertAtEnd(7)
+// list.insertAtEnd(8)
+// console.log(list)
+// list.head.next.next.next.next = list.head.next.next
+
+let pri = list.isLoopFound()
+// console.log(pri)
+
+
+// **********************************************
+// Question: Given a linked list, ends in a cycle. Find the starting in the loop. 
+
+linkedList.prototype.startingOfLoop = function () {
+  let slow = this.head
+  let fast = slow
+  let isLoopFound = false
+
+  if (this.head == null) {
+    console.log("This list does not exist.")
+  }
+
+  while (fast != null && fast.next != null) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow == fast) {
+      isLoopFound = true
+      break
+    }
+  }
+
+  if (isLoopFound) {
+    slow = this.head
+    while (slow != fast) {
+      slow = slow.next
+      fast = fast.next
+    }
+  }
+  // console.log(slow.data)
+}
+list.insertAtBeginning(1)
+list.insertAtEnd(2)
+list.insertAtEnd(3)
+list.insertAtEnd(4)
+list.insertAtEnd(5)
+list.insertAtEnd(6)
+list.insertAtEnd(7)
+list.insertAtEnd(8)
+// console.log(list)
+list.head.next.next.next.next.next.next = list.head.next.next
+
+// list.startingOfLoop()
+// console.log(pri)
+
+
+// **************************************************************
+// Reverse linkedList list 
+linkedList.prototype.reverseList = function (head) {
+  let prev = null
+  let next = null
+  let crr = head
+
+  while (crr != null) {
+    next = crr.next
+    crr.next = prev
+    prev = crr
+    crr = next
+  }
+  head  = prev
+  return this.head
+}
+
+let p = list.reverseList()
+console.log(p)
